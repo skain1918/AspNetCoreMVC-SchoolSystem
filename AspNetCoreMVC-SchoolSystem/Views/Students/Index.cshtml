@@ -1,6 +1,7 @@
 ﻿@using AspNetCoreMVC_SchoolSystem.DTO
 @model IEnumerable<StudentDTO>
 <h1>Index</h1>
+<a asp-action="Create" class="btn btn-success" >Create</a>
 @foreach (var item in Model) {
     <div class="border border-1 border-dark p-2 ">
         <h5>@item.FirstName @item.LastName</h5>
