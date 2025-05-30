@@ -7,9 +7,10 @@
         <h5>@item.FirstName @item.LastName</h5>
         Id: @item.Id
         <p>Date of Birth: "@item.DateOfBirth.ToString()"</p>
-        <a class="btn btn-warning">Edit</a>
+        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
         <form method="post">
-            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="submit" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</button>
         </form>
     </div>
     }
+    

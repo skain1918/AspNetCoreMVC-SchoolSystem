@@ -23,9 +23,19 @@ namespace AspNetCoreMVC_SchoolSystem.Controllers {
             return RedirectToAction("Index");
             }
         [HttpGet]
-        public IActionResult Edit(int id) {
-            var studentToEdit = _studentService.GetByIdAsync(id);
+        public async Task<IActionResult> EditAsync(int id) {
+            var studentToEdit = await _studentService.GetByIdAsync(id);
             return View(studentToEdit);
+            }
+        [HttpPost]
+        public async Task<IActionResult> EditAsync(StudentDTO studentDTO, int id) {
+            await _studentService.UpdateAsync(studentDTO, id);
+            return RedirectToAction("Index");
+            }
+        [HttpPost]
+        public async Task<IActionResult> DeleteAsync(int id) {
+            await _studentService.DeleteAsync(id);
+            return RedirectToAction("Index");
             }
         }
     }
