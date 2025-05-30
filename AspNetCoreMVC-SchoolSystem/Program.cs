@@ -12,6 +12,7 @@ builder.Services.AddDbContext<SchoolDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SchoolDbConnection"));
 });
 builder.Services.AddScoped<StudentService>();
+builder.Services.AddScoped<SubjectService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

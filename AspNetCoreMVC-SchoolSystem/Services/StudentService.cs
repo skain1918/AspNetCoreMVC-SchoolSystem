@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreMVC_SchoolSystem.Services;
 public class StudentService {
-    SchoolDbContext _dbcontext;
+    SchoolDbContext _dbContext;
     public StudentService(SchoolDbContext dbcontext) {
-        _dbcontext = dbcontext;
+        _dbContext = dbcontext;
         }
     public List<StudentDTO> GetAll() {
-        var allStudents = _dbcontext.Students.ToList();
+        var allStudents = _dbContext.Students.ToList();
         var studentDtos = new List<StudentDTO>();
         foreach (var student in allStudents) {
             StudentDTO studentDTO = ModelToDTO(student);
@@ -21,18 +21,26 @@ public class StudentService {
         }
     internal async Task CreateAsync(StudentDTO newStudent) {
         Student studentToSave = DtoToModel(newStudent);
-        await _dbcontext.Students.AddAsync(studentToSave);
-        await _dbcontext.SaveChangesAsync();
+        await _dbContext.Students.AddAsync(studentToSave);
+        await _dbContext.SaveChangesAsync();
         }
 
     internal async Task<StudentDTO> GetByIdAsync(int id) {
-        var studentToEdit = await _dbcontext.Students.FindAsync(id);
+        var studentToEdit = await _dbContext.Students.FindAsync(id);
         return ModelToDTO(studentToEdit);
         }
 
     internal async Task UpdateAsync(StudentDTO studentDTO, int id) {
-        _dbcontext.Update(DtoToModel(studentDTO));
-        await _dbcontext.SaveChangesAsync();
+        _dbContext.Update(DtoToModel(studentDTO));
+        await _dbContext.SaveChangesAsync();
+        }
+    internal async Task DeleteAsync(int id) {
+        var studentToDelete = await _dbContext.Students.FindAsync(id);
+        if (studentToDelete != null) {
+            _dbContext.Students.Remove(studentToDelete);
+
+            }
+        await _dbContext.SaveChangesAsync();
         }
 
     private StudentDTO ModelToDTO(Student student) {
@@ -54,13 +62,5 @@ public class StudentService {
             };
         }
 
-    internal async Task DeleteAsync(int id) {
-        var studentToDelete = await _dbcontext.Students.FindAsync(id);
-        if (studentToDelete != null) {
-            _dbcontext.Students.Remove(studentToDelete);
-
-            }
-        await _dbcontext.SaveChangesAsync();    
-            }
     }
 
