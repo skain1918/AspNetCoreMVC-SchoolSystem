@@ -1,0 +1,50 @@
+﻿using AspNetCoreMVC_SchoolSystem.DTO;
+using AspNetCoreMVC_SchoolSystem.Services;
+using AspNetCoreMVC_SchoolSystem.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace AspNetCoreMVC_SchoolSystem.Controllers; 
+public class GradesController : Controller {
+    GradeService _gradeService;
+
+    public GradesController(GradeService gradeService) {
+        _gradeService = gradeService;
+        }
+    [HttpGet]
+    public IActionResult Index() {
+        IEnumerable<GradeDTO> allGrades = _gradeService.GetAll();
+        return View(allGrades);
+        }
+    [HttpGet]
+    public IActionResult Create() {
+        FillDropDowns();
+        return View();
+        }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateAsync(GradeDTO newGrade) {
+        await _gradeService.CreateAsync(newGrade);
+        return RedirectToAction("Index");
+        }
+    [HttpGet]
+    public async Task<IActionResult> EditAsync(int id, GradeDTO gradeDTO) {
+        GradeDTO gradeToEdit = await _gradeService.FindByIdAsync(id);
+        if (gradeToEdit == null) {
+            return View("NotFound");
+            }
+        FillDropDowns();
+        return View(gradeToEdit);
+        }
+    [HttpPost]
+    public async Task<IActionResult> EditAsync(GradeDTO updatedGrade) {
+        await _gradeService.UpdateAsync(updatedGrade);
+        return RedirectToAction("Index");
+        }
+    private void FillDropDowns() {
+        GradesDropdownsViewModel gradesDropdownsData = _gradeService.GetGradesDropdownsData();
+        ViewBag.Students = new SelectList(gradesDropdownsData.Students, "Id", "LastName");
+        ViewBag.Subjects = new SelectList(gradesDropdownsData.Subjects, "Id", "Name");
+        }
+
+    }

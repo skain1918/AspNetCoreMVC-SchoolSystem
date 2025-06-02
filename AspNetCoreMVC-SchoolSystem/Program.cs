@@ -13,6 +13,7 @@ builder.Services.AddDbContext<SchoolDbContext>(options =>
 });
 builder.Services.AddScoped<StudentService>();
 builder.Services.AddScoped<SubjectService>();
+builder.Services.AddScoped<GradeService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
