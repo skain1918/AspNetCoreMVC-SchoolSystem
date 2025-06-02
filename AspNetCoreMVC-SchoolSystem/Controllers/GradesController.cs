@@ -41,6 +41,15 @@ public class GradesController : Controller {
         await _gradeService.UpdateAsync(updatedGrade);
         return RedirectToAction("Index");
         }
+    [HttpPost]
+    public async Task<IActionResult> DeleteAsync(int id) {
+        GradeDTO gradeToDelete = await _gradeService.FindByIdAsync(id);
+        if (gradeToDelete == null) {
+            return View("NotFound");
+            }
+        await _gradeService.DeleteAsync(id);
+        return RedirectToAction("Index");
+        }
     private void FillDropDowns() {
         GradesDropdownsViewModel gradesDropdownsData = _gradeService.GetGradesDropdownsData();
         ViewBag.Students = new SelectList(gradesDropdownsData.Students, "Id", "LastName");

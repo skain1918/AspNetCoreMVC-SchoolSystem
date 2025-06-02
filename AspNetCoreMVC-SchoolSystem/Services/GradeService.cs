@@ -70,4 +70,10 @@ public class GradeService {
         _dbContext.Grades.Update(gradeToSave);
         await _dbContext.SaveChangesAsync();
         }
+
+    internal async Task DeleteAsync(int Id) {
+        Grade gradeToDelete = await _dbContext.Grades.FindAsync(Id);
+        _dbContext.Grades.Remove(gradeToDelete);
+        await _dbContext.SaveChangesAsync();
+        }
     }
