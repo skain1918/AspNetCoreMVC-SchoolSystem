@@ -27,6 +27,7 @@ public class SubjectsController : Controller {
     [HttpGet]
     public async Task<IActionResult> EditAsync(int id) {
         var subjecttToEdit = await _subjectService.GetByIdAsync(id);
+        if (subjecttToEdit == null) {return View("NotFound");}
         return View(subjecttToEdit);
         }
     [HttpPost]

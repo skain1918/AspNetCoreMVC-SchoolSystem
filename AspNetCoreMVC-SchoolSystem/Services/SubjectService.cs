@@ -25,6 +25,7 @@ public class SubjectService {
         }
     internal async Task<SubjectDTO> GetByIdAsync(int id) {
         var subjectToEdit = await _dbContext.Subjects.FindAsync(id);
+        if (subjectToEdit == null) {return null;}
         return ModelToDTO(subjectToEdit);
         }
 
@@ -40,15 +41,13 @@ public class SubjectService {
             }
         await _dbContext.SaveChangesAsync();
         }
-    
-    private Subject DtoToModel(SubjectDTO newSubject) {
+        private Subject DtoToModel(SubjectDTO newSubject) {
         return new Subject()
             {
             Id = newSubject.Id,
             Name = newSubject.Name
             };
         }
-
     private SubjectDTO ModelToDTO(Subject subject) {
         return new SubjectDTO()
             {
