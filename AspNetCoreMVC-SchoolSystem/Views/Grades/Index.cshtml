@@ -5,6 +5,8 @@
 @{
 }
 <h1>List of all grades</h1>
+<hr/>
+<div><a asp-action="Create" class="btn btn-success">Add new grade</a></div>
 @foreach (var item in Model)
 {
     <div class="border border-1 border-dark p-2 ">
@@ -16,6 +18,5 @@
         </form>
     </div>
 }
-<hr/>
-<div><a asp-action="Create" class="btn btn-success">Add new grade</a></div>
+
     

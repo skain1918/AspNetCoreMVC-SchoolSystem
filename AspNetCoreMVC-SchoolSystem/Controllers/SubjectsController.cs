@@ -21,6 +21,9 @@ public class SubjectsController : Controller {
         }
     [HttpPost]
     public async Task<IActionResult> CreateAsync(SubjectDTO newSubject) {
+        if (!ModelState.IsValid) {
+            return View(newSubject);
+            }
         await _subjectService.CreateAsync(newSubject);
         return RedirectToAction("Index");
         }

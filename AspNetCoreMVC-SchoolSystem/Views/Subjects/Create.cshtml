@@ -2,11 +2,18 @@
 @model SubjectDTO
 <h4>Create a new subject</h4>
 <form asp-action="Create">
+    <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="Name"></label>
         <input type="text" asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <input class="btn btn-success" type="submit" value="Create" />
     <input class="btn btn-warning" type="reset" value="Reset" />
 
 </form> 
+@section Scripts {
+    @{
+    <partial name="_ValidationScriptsPartial" />
+}
+    }

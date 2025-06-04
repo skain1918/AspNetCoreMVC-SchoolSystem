@@ -1,5 +1,7 @@
 using AspNetCoreMVC_SchoolSystem;
+using AspNetCoreMVC_SchoolSystem.Models;
 using AspNetCoreMVC_SchoolSystem.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,7 @@ builder.Services.AddDbContext<SchoolDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SchoolDbConnection"));
 });
+builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<SchoolDbContext>().AddDefaultTokenProviders();
 builder.Services.AddScoped<StudentService>();
 builder.Services.AddScoped<SubjectService>();
 builder.Services.AddScoped<GradeService>();
@@ -29,6 +32,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -27,22 +27,19 @@ public class GradeService {
             Id = newGrade.Id
             };
         }
-
     internal async Task<GradeDTO> FindByIdAsync(int id) {
-        var gradeToReturn = await _dbContext.Grades.Include(gr=>gr.Subject).Include(gr=>gr.Student).FirstOrDefaultAsync(gr=>gr.Id==id);
-        if (gradeToReturn == null) {return null; }
+        var gradeToReturn = await _dbContext.Grades.Include(gr => gr.Subject).Include(gr => gr.Student).FirstOrDefaultAsync(gr => gr.Id == id);
+        if (gradeToReturn == null) { return null; }
         return ModelToDto(gradeToReturn);
         }
-
     internal IEnumerable<GradeDTO> GetAll() {
-        var allGrades = _dbContext.Grades.Include(gr=>gr.Student).Include(gr=>gr.Subject);
+        var allGrades = _dbContext.Grades.Include(gr => gr.Student).Include(gr => gr.Subject);
         List<GradeDTO> gradeDTOs = new List<GradeDTO>();
         foreach (var grade in allGrades) {
             gradeDTOs.Add(ModelToDto(grade));
             }
         return gradeDTOs;
         }
-
     private GradeDTO ModelToDto(Grade grade) {
         return (new GradeDTO()
             {
@@ -56,7 +53,6 @@ public class GradeService {
             SubjectName = grade.Subject.Name
             });
         }
-
     internal GradesDropdownsViewModel GetGradesDropdownsData() {
         return new GradesDropdownsViewModel()
             {
@@ -64,7 +60,6 @@ public class GradeService {
             Subjects = _dbContext.Subjects.OrderBy(subject => subject.Name)
             };
         }
-
     internal async Task UpdateAsync(GradeDTO updatedGrade) {
         Grade gradeToSave = await DtoToModelAsync(updatedGrade);
         _dbContext.Grades.Update(gradeToSave);
