@@ -7,10 +7,11 @@
         <h5>@item.Name</h5>
         Id: @item.Id
         <br />
-        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-        <form method="post">
-            <button type="submit" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</button>
-        </form>
+        @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Chief") || User.IsInRole("Teacher"))) {
+            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+            <form method="post">
+                <button type="submit" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</button>
+        </form>}
     </div>
-    }
+}
     

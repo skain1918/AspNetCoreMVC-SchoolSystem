@@ -34,11 +34,27 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Grades" asp-action="Index">Grades</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin")) {
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Roles" asp-action="Index">Roles</a>
+                            </li>
+                            }
+                        @if(User.Identity.IsAuthenticated)
+                        {
+                            @* <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">Profile</a>
+                            </li> account profile link *@
+                        }
                     </ul>
-                </div>
+                </div> 
+                @if (User.Identity.IsAuthenticated) {
+                    <div class="btn btn-outline-info m-2">@User.Identity.Name</div>
+                    <a class="btn btn-outline-danger" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                    }
             </div>
         </nav>
     </header>

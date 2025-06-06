@@ -17,6 +17,23 @@ builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<S
 builder.Services.AddScoped<StudentService>();
 builder.Services.AddScoped<SubjectService>();
 builder.Services.AddScoped<GradeService>();
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Password settings
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
+
+});
+// Configure the application cookie
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.Name = ".AspNetCore.Identity.Application";
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(20);      // Set the expiration time for login cookies
+    options.SlidingExpiration = true;
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
