@@ -8,10 +8,14 @@
         Id: @item.Id
         <br />
         @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Chief") || User.IsInRole("Teacher"))) {
-            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+
+
             <form method="post">
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                 <button type="submit" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</button>
-        </form>}
+                </form>
+
+        }
     </div>
 }
     

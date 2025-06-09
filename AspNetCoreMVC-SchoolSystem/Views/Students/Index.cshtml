@@ -12,16 +12,27 @@
         <input type="submit" value="Upload" />
     </div>
 </form>
+<div>
+    <form method="get" asp-action="Search">
+        <label for="search">Search the site:</label>
+        <input list="search-students" type="search" id="search" name="q" />
+        <datalist id="search-students">
+            @foreach (var student in Model) {
+                <option value="@student.LastName, @student.FirstName"></option>
+                }
+        </datalist>
+        <button type="submit" class="btn btn-success">Search</button>
+    </form>
+</div>
 <hr />
 @foreach (var item in Model) {
     <div class="border border-1 border-dark p-2 ">
         <h5>@item.FirstName @item.LastName</h5>
         Id: @item.Id
         <p>Date of Birth: "@item.DateOfBirth.ToString()"</p>
+        <div class="d-inline">
         <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-            <form method="post">
-                <button type="submit" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</button>
-            </form>
-       
+        <a class="btn btn-danger" asp-action="GetToDelete" asp-route-id="@item.Id">Delete</a>
+       </div>
     </div>
     }

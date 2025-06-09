@@ -62,5 +62,15 @@ public class StudentService {
             };
         }
 
+    internal IEnumerable<StudentDTO> GetByName(string q) {
+        var nameParts = q.Split(", ");
+        var studentsThatMatch = _dbContext.Students.Where(s => s.FirstName.Contains(q) || s.LastName.Contains(q));
+
+        List<StudentDTO> returnedStudents = new List<StudentDTO>();
+        foreach (var studentThatMatches in studentsThatMatch) {
+            returnedStudents.Add(ModelToDTO(studentThatMatches));
+            }
+        return returnedStudents;
+        }
     }
 

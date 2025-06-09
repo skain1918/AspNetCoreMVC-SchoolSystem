@@ -12,10 +12,11 @@
     <div class="border border-1 border-dark p-2 ">
         <h5>@item.StudentFullName</h5>
         <p>@item.SubjectName --- @item.Topic  ---  @item.Mark <br/> @item.Date.ToShortDateString() </p>
-        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-        <form method="post">
+        <div class="d-inline">
+
+        <form method="post">        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
             <button type="submit" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</button>
-        </form>
+        </form></div>
     </div>
 }
 

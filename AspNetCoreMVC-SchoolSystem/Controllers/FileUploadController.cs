@@ -22,12 +22,23 @@ public class FileUploadController : Controller {
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(filePath);
             XmlElement root = xmlDoc.DocumentElement;
+            //foreach (XmlNode node in root.SelectNodes("/Students/Student")) {
+            //    StudentDTO studentDto = new StudentDTO
+            //        {
+            //        FirstName = node.ChildNodes[0].InnerText,
+            //        LastName = node.ChildNodes[1].InnerText,
+            //        DateOfBirth = DateOnly.Parse(node.ChildNodes[2].InnerText, CultureInfo.CreateSpecificCulture("cs-CZ"))
+            //        };
+            //    await _studentService.CreateAsync(studentDto);
+            //    }
             foreach (XmlNode node in root.SelectNodes("/Students/Student")) {
                 StudentDTO studentDto = new StudentDTO
                     {
-                    FirstName = node.ChildNodes[0].InnerText,
-                    LastName = node.ChildNodes[1].InnerText,
-                    DateOfBirth = DateOnly.Parse(node.ChildNodes[2].InnerText, CultureInfo.CreateSpecificCulture("cs-CZ"))
+                    FirstName = node.SelectSingleNode("FirstName")?.InnerText,
+                    LastName = node.SelectSingleNode("LastName")?.InnerText,
+                    DateOfBirth = DateOnly.Parse(
+                        node.SelectSingleNode("DateOfBirth")?.InnerText ?? string.Empty,
+                        CultureInfo.CreateSpecificCulture("cs-CZ"))
                     };
                 await _studentService.CreateAsync(studentDto);
                 }
