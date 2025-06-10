@@ -13,9 +13,13 @@ builder.Services.AddControllersWithViews();
 //{
 //    options.UseSqlServer(builder.Configuration.GetConnectionString("SchoolDbConnection"));
 //});
+//builder.Services.AddDbContext<SchoolDbContext>(options =>
+//{
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("AzureDbConnection"));
+//});
 builder.Services.AddDbContext<SchoolDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("AzureDbConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MonstrerAspConnection"));
 });
 builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<SchoolDbContext>().AddDefaultTokenProviders();
 builder.Services.AddScoped<StudentService>();
@@ -45,6 +49,7 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseDeveloperExceptionPage();
     app.UseHsts();
 }
 
