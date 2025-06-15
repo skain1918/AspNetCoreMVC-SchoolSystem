@@ -18,6 +18,11 @@ public class GradesController : Controller {
         IEnumerable<GradeDTO> allGrades = _gradeService.GetAll();
         return View(allGrades);
         }
+    public IActionResult MyGrades() {
+        IEnumerable<GradeDTO> myGrades = _gradeService.GetAll()
+            .Where(grade => grade.StudentId.ToString() == User.FindFirst("StudentId")?.Value);
+        return View(myGrades);
+        }
     [HttpGet]
     [Authorize(Roles = "Teacher, Admin")]
     public IActionResult Create() {

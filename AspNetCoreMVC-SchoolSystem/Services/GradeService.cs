@@ -33,6 +33,7 @@ public class GradeService {
         return ModelToDto(gradeToReturn);
         }
     internal IEnumerable<GradeDTO> GetAll() {
+
         var allGrades = _dbContext.Grades.Include(gr => gr.Student).Include(gr => gr.Subject);
         List<GradeDTO> gradeDTOs = new List<GradeDTO>();
         foreach (var grade in allGrades) {

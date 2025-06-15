@@ -9,18 +9,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 //Add service to the database
-//builder.Services.AddDbContext<SchoolDbContext>(options =>
-//{
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("SchoolDbConnection"));
-//});
+builder.Services.AddDbContext<SchoolDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SchoolDbConnection"));
+});
 //builder.Services.AddDbContext<SchoolDbContext>(options =>
 //{
 //    options.UseSqlServer(builder.Configuration.GetConnectionString("AzureDbConnection"));
 //});
-builder.Services.AddDbContext<SchoolDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MonstrerAspConnection"));
-});
+//builder.Services.AddDbContext<SchoolDbContext>(options =>
+//{
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("MonstrerAspConnection"));
+//});
 builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<SchoolDbContext>().AddDefaultTokenProviders();
 builder.Services.AddScoped<StudentService>();
 builder.Services.AddScoped<SubjectService>();
