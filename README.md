@@ -1,2 +1,2 @@
 school system
-made during the programming course
+created during the programming course
